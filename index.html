@@ -14,6 +14,7 @@
       justify-content: center;
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      overflow: hidden;
     }
 
     .card {
@@ -24,11 +25,12 @@
       width: 90%;
       max-width: 350px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      position: relative;
     }
 
     h1 {
+      font-size: 26px;
       margin-bottom: 10px;
-      font-size: 28px;
     }
 
     p {
@@ -38,10 +40,8 @@
 
     .buttons {
       margin-top: 25px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
+      height: 60px;
+      position: relative;
     }
 
     button {
@@ -50,37 +50,56 @@
       border-radius: 25px;
       font-size: 16px;
       cursor: pointer;
+      position: absolute;
       transition: 0.2s;
     }
 
     .yes {
       background: #ff4d6d;
       color: white;
+      left: 50%;
+      transform: translateX(-110%);
     }
 
     .no {
       background: #ddd;
-    }
-
-    .yes:hover {
-      transform: scale(1.05);
+      left: 50%;
+      transform: translateX(10%);
     }
   </style>
 </head>
 
 <body>
   <div class="card">
-    <h1>Hey 👋</h1>
+    <h1>Hey Kanak 👋</h1>
     <p>I have a very serious question for you…</p>
 
     <div class="buttons">
       <button class="yes" onclick="yesClicked()">Yes 💖</button>
-      <button class="no" onclick="noClicked()">No 😐</button>
+      <button class="no" id="noBtn">No 😐</button>
     </div>
   </div>
 
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <script>
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - 100);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
     function yesClicked() {
+      confetti({
+        particleCount: 200,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
       document.body.innerHTML = `
         <div style="
           height:100vh;
@@ -89,14 +108,15 @@
           justify-content:center;
           background:linear-gradient(135deg,#ff9a9e,#fad0c4);
           font-family:Poppins,sans-serif;
+          text-align:center;
+          padding:20px;
         ">
-          <h1 style="font-size:32px;">I knew it 😌💘</h1>
+          <h1 style="font-size:32px;">
+            I knew it, Kanak 😌💘<br><br>
+            Happy Valentine’s 💖
+          </h1>
         </div>
       `;
-    }
-
-    function noClicked() {
-      alert("Think again 😏");
     }
   </script>
 </body>
